@@ -11,11 +11,25 @@ body {
     color: #333;
 }
 
+/* General link styles (site-wide) */
+a {
+    color: #0f4c81;
+    text-decoration: none;
+    transition: color .18s ease, opacity .18s ease;
+}
+
+a:hover {
+    color: #08335a;
+    opacity: 0.95;
+}
+
 /* Header */
 .header {
-    background: #2c3e50;
-    color: white;
-    padding: 15px 0;
+    /* New header background and text styling */
+    background: linear-gradient(135deg, #074b60 0%, #0b2a3b 100%);
+    color: #ffffff;
+    padding: 18px 0;
+    box-shadow: 0 6px 22px rgba(3,20,28,0.28);
 }
 
 .container {
@@ -37,11 +51,60 @@ body {
 }
 
 .logo h1 {
-    font-size: 24px;
+    font-size: 32px;
+    letter-spacing: 1px;
+    font-weight: 800;
+    color: #ffffff; /* ensure h1 is visible on header background */
+    font-family: 'Trebuchet MS', 'Segoe UI', Tahoma, Arial, sans-serif;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 6px 18px rgba(0,0,0,0.15);
 }
 
 .logo span {
-    color: #3498db;
+    color: #ffd24a; /* accent for the HOSPITAL word */
+    font-weight: 700;
+}
+
+/* Icon on the H1 (logo) using data-icon attribute */
+.logo h1[data-icon] {
+    position: relative;
+    padding-left: 48px; /* space for the icon */
+}
+
+.logo h1[data-icon]::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.6rem;
+}
+
+.logo h1[data-icon="admin"]::before { content: "👨‍⚕️"; }
+.logo h1[data-icon="hospital"]::before { content: "🏥"; }
+.logo h1[data-icon="clinic"]::before { content: "🏥"; }
+
+/* Ensure header text color contrast */
+.header, .header a { color: #f7fbff; }
+
+/* Hero and form headings (h2) — background and font style */
+.hero h2,
+.form-container h2 {
+    display: inline-block;
+    background: linear-gradient(180deg, #eaf6ff 0%, #ffffff 100%);
+    color: #0b4f77;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
+    font-size: 30px;
+    box-shadow: 0 6px 18px rgba(11,79,119,0.06);
+}
+
+/* Slightly smaller / tighter on small screens */
+@media (max-width: 480px) {
+    .hero h2,
+    .form-container h2 { font-size: 22px; padding: 10px 14px; }
 }
 
 .nav ul {
@@ -51,14 +114,83 @@ body {
 }
 
 .nav a {
-    color: white;
+    color: rgba(255,255,255,0.95);
     text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 4px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: background .18s ease, color .18s ease, transform .12s ease;
+    position: relative;
+    overflow: visible;
 }
 
 .nav a:hover {
-    background: #3498db;
+    background: rgba(255,255,255,0.08);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.nav a:active {
+    transform: translateY(0);
+}
+
+/* Icons before anchors that belong to UL in header nav */
+.nav ul a[data-icon] {
+    padding-left: 34px; /* leave space for icon */
+}
+
+.nav ul a[data-icon]::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.05rem;
+}
+
+.nav ul a[data-icon="home"]::before { content: "🏠"; }
+.nav ul a[data-icon="register"]::before { content: "📝"; }
+.nav ul a[data-icon="login"]::before { content: "🔐"; }
+.nav ul a[data-icon="admin"]::before { content: "👨‍⚕️"; }
+
+/* Styling for UL > LI > A links: background, font and sizing */
+.nav ul li a {
+    background: rgba(255,255,255,0.03);
+    font-family: 'Segoe UI', Tahoma, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 10px 16px;
+    color: rgba(255,255,255,0.95);
+}
+
+.nav ul li a:hover {
+    background: rgba(255,255,255,0.12);
+}
+
+/* small adjustment for mobile: reduce icon padding */
+@media (max-width: 480px) {
+    .nav ul a[data-icon] { padding-left: 28px; }
+    .nav ul a[data-icon]::before { left: 8px; }
+}
+
+/* Animated underline for header nav links */
+.nav a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    height: 3px;
+    width: 70%;
+    border-radius: 3px;
+    background: linear-gradient(90deg,#0f7bdc,#2ecc71);
+    transition: transform .22s cubic-bezier(.2,.8,.2,1), opacity .22s;
+    opacity: 0.95;
+}
+
+.nav a:hover::after {
+    transform: translateX(-50%) scaleX(1);
 }
 
 /* Forms */
@@ -85,36 +217,85 @@ body {
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0f7bdc;
+    box-shadow: 0 6px 18px rgba(15,123,220,0.08);
 }
 
 .btn {
-    background: #3498db;
-    color: white;
+    background: linear-gradient(180deg, #0f7bdc 0%, #0b63a8 100%);
+    color: #ffffff;
     padding: 12px 24px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 16px;
     display: inline-block;
     text-decoration: none;
     text-align: center;
+    box-shadow: 0 6px 14px rgba(15,123,220,0.12);
+    transition: transform .18s ease, box-shadow .18s ease, filter .12s ease;
 }
 
 .btn:hover {
-    background: #2980b9;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(15,123,20,0.18);
+    filter: brightness(1.03);
 }
 
 .btn-secondary {
-    background: #2ecc71;
+    background: linear-gradient(180deg,#37c975 0%,#2bb66a 100%);
+}
+
+/* Admin/login form button override: more prominent color and larger font */
+.form-container .btn {
+    background: linear-gradient(180deg,#28a745 0%,#1e8c3a 100%);
+    color: #ffffff;
+    font-size: 18px;
+    padding: 14px 26px;
+    border-radius: 10px;
+    box-shadow: 0 10px 28px rgba(40,167,69,0.14);
+}
+
+.form-container .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(40,167,69,0.18);
+    filter: brightness(1.03);
+}
+
+/* Ensure native submit inputs/buttons match the styled button */
+.form-container input[type="submit"],
+.form-container button[type="submit"] {
+    background: linear-gradient(180deg,#28a745 0%,#1e8c3a 100%);
+    color: #ffffff;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.form-container input[type="submit"]:hover,
+.form-container button[type="submit"]:hover {
+    filter: brightness(1.03);
+    transform: translateY(-2px);
 }
 
 .btn-secondary:hover {
-    background: #27ae60;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(46,204,113,0.14);
 }
+
 
 /* Home Page */
 .hero {
@@ -137,6 +318,46 @@ body {
     border-radius: 8px;
     text-align: center;
     width: 30%;
+}
+
+/* Heading icons & color mapping inside container */
+.container h2[data-icon],
+.container h3[data-icon] {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color .25s ease, transform .18s ease;
+}
+
+.container h2[data-icon]::before,
+.container h3[data-icon]::before {
+    display: inline-block;
+    font-size: 1.25em;
+    margin-right: 0.5rem;
+    transition: transform .25s ease;
+}
+
+/* Icon mappings (use emoji for lightweight icons) */
+.container h2[data-icon="hospital"]::before { content: "🏥"; color: #3498db; }
+.container h3[data-icon="booking"]::before  { content: "📅"; color: #e67e22; }
+.container h3[data-icon="doctors"]::before  { content: "🩺"; color: #27ae60; }
+.container h3[data-icon="service"]::before  { content: "🕒"; color: #9b59b6; }
+
+/* Heading colors tied to the icon/type */
+.container h2[data-icon="hospital"] { color: #2c3e50; }
+.container h3[data-icon="booking"]  { color: #e67e22; }
+.container h3[data-icon="doctors"]  { color: #2d8f6f; }
+.container h3[data-icon="service"]  { color: #8e44ad; }
+
+/* Hover/interaction */
+.container h2[data-icon]:hover::before,
+.container h3[data-icon]:hover::before {
+    transform: translateY(-3px) scale(1.05);
+}
+.container h2[data-icon]:hover,
+.container h3[data-icon]:hover {
+    filter: brightness(0.95);
 }
 
 /* Tables */
