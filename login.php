@@ -49,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <nav class="nav">
                     <ul>
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="register.php">Register</a></li>
+                        <li><a href="index.php" data-icon="home">Home</a></li>
+                        <li><a href="register.php" data-icon="register">Register</a></li>
                     </ul>
                 </nav>
             </div>
@@ -68,13 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form method="POST" action="">
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" name="email" required
+                    <input type="email" name="email" required placeholder="salota@gmail.com"
                            value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" required placeholder="samakms7@SS">
                 </div>
 
                 <button type="submit" class="btn" style="width:100%">Login</button>
